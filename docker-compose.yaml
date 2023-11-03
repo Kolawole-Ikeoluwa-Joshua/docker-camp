@@ -1,0 +1,45 @@
+version: "3.4"
+services:
+  csharp: #docker run -it -v ${PWD}:/work -w /work -p 5000:5000 kolawolejoshua/csharp:1.0.0 /bin/sh
+    container_name: csharp
+    image: kolawolejoshua/csharp:1.0.0
+    build:
+      context: ./c#
+      target: debug
+    # working_dir: /work      #comment out for build.target:prod
+    # entrypoint: /bin/sh     #comment out for build.target:prod
+    # stdin_open: true        #comment out for build.target:prod
+    # tty: true               #comment out for build.target:prod
+    volumes:
+      - ./c#/src/:/work/
+    ports:
+      - 5000:5000
+  nodejs: #docker run -it -v ${PWD}:/work -w /work -p 5002:5000 kolawolejoshua/nodejs:1.0.0 /bin/sh
+    container_name: nodejs
+    image: kolawolejoshua/nodejs:1.0.0
+    build:
+      context: ./nodejs
+      target: debug
+    #working_dir: /work      #comment out for build.target:prod
+    #entrypoint: /bin/sh     #comment out for build.target:prod
+    #stdin_open: true        #comment out for build.target:prod
+    #tty: true               #comment out for build.target:prod
+    volumes:
+      - ./nodejs/src/:/work/src/
+    ports:
+      - 5002:5000
+      - 9229:9229             # debug port
+  python: #docker run -it -v ${PWD}:/work -w /work -p 5003:5000 kolawolejoshua/python:1.0.0 /bin/sh
+    container_name: python
+    image: kolawolejoshua/python:1.0.0
+    build:
+      context: ./python
+      target: prod
+    #working_dir: /work      #comment out for build.target:prod
+    #entrypoint: /bin/sh     #comment out for build.target:prod
+    #stdin_open: true        #comment out for build.target:prod
+    #tty: true               #comment out for build.target:prod
+    volumes:
+      - ./python/src/:/work
+    ports:
+      - 5003:5000
