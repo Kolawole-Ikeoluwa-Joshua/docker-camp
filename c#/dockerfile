@@ -19,7 +19,7 @@ ENTRYPOINT ["dotnet", "run"]
 
 ###########START NEW IMAGE###########################################
 
-FROM mcr.microsoft.com/dotnet/core/aspnet:2.2-stretch-slim as prod
+FROM mcr.microsoft.com/dotnet/core/sdk:3.1 as prod
 
 RUN mkdir /app/
 WORKDIR /app/
